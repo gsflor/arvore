@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include "abb.h"
 
+//typedef struct arvore Arv;
+
 struct arvore{
     int key;
     Arv* esq;
     Arv* dir;
 };
-
-typedef struct arvore Arv;
-
+//Da uma olhada nessa parte aqui, nao to conseguindo chamar a criaArv passando a criavazia como argumento pra ela
 Arv* criavazia(){
     return NULL;
 };
@@ -22,8 +22,8 @@ Arv* criaArv(int key, Arv* esq, Arv* dir){
     return p;
 }
 
-Arv* chkVazia(Arv* p){
-    return p==NULL;
+int chkVazia(Arv* p){
+    return p==NULL?1:0;
 }
 
 Arv* libera(Arv* p){
@@ -36,7 +36,7 @@ Arv* libera(Arv* p){
     
 }
 
-Arv* chkKey(Arv* p, int key){
+int chkKey(Arv* p, int key){
     if(chkVazia(p)){
         return 0;
     } else{
@@ -46,27 +46,32 @@ Arv* chkKey(Arv* p, int key){
 
 void imprime(Arv* p){
     if(!chkVazia(p)){
-        printf("%d",p->key);
-        printf("%d",p->dir->key);
-        printf("%d",p->esq->key);
+		printf("Chave:\n");
+        printf("%d\n",p->key);
+	}
+	if(!chkVazia(p->esq)){
+		printf("Chave esq:\n");
+        printf("%d\n",p->esq->key);	
+	}
+	if(!chkVazia(p->dir)){
+		printf("Chave dir:\n");
+        printf("%d\n",p->dir->key);	
     }
 }
 
-int seekMin(Arv* p){
-    int minKey = 99999;
-    Arv* l1,r1;
-    l1 = p->esq;
-    r1 = p->dir;
-    if(p->key<minKey){
-        minKey = p->key;
+Arv* buscaMin(Arv* p){
+    int min = 999;
+	printf("MIN: %d", min);	
+	
+    if((p->key)<min){
+        min = p->key;
+		printf("MIN: %d", min);
+        buscaMin(p->esq);
+        buscaMin(p->dir);
     }
-    while(!chkVazia(l1)){
-     if(l1->key<minKey){
-         minKey = l1->key;
-         if(!chkVazia(l1->esq)){
-             l1 = l1->esq;
-         }
-     }   
+	printf("MIN: %d", min);
+}
+        printf("%d",p->esq->key);
     }
 }
 
