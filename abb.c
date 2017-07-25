@@ -36,7 +36,7 @@ Arv* libera(Arv* p){
     
 }
 
-int chkKey(Arv* p, int key){
+int chkKey(Arv* p, int key){ //Key nao ta sendo usado
     if(chkVazia(p)){
         return 0;
     } else{
@@ -70,28 +70,29 @@ Arv* buscaMin(Arv* p){
         buscaMin(p->dir);
     }
 	printf("MIN: %d", min);
-}
-        printf("%d",p->esq->key);
-    }
+	printf("%d",p->esq->key);
+
+	return p->esq; // Não sei o que retornaria porque a busca ta um pouco confusa. Mas precisa retornar alguma coisa pela declaração
 }
 
-Arv* busca (arvore r, int k) {
-    if (r == NULL || r->chave == k)
-       return r;
-    if (r->chave > k)
-       return busca (r->esq, k);
+Arv* busca (Arv *r, int k)
+{
+    if (r == NULL || r->key == k)
+		return r;
+    if (r->key > k)
+		return busca (r->esq, k);
     else
-       return busca (r->dir, k);
+		return busca (r->dir, k);
 }
 
-Arv* buscaMin(Arv* p){
-    int min = 99999;
-    if(chkVazia(p)==NULL){
-        return NULL;
-    }
-    if(p->key<min){
-        min = p->key;
-        buscaMin(p->esq);
-        buscaMin(p->dir);
-    }
-}
+/* Arv* buscaMin(Arv* p){ */
+/*     int min = 99999; */
+/*     if(chkVazia(p)==NULL){ */
+/*         return NULL; */
+/*     } */
+/*     if(p->key<min){ */
+/*         min = p->key; */
+/*         buscaMin(p->esq); */
+/*         buscaMin(p->dir); */
+/*     } */
+/* } */
