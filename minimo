@@ -1,0 +1,17 @@
+int min(Arv* p, int m){
+	int menor = m;
+	if(p==NULL){
+		return NULL;
+	}
+	if(p!=NULL){
+		if(p->key<menor){
+			menor = p->key;			
+		}
+	min(p->dir,menor);
+	min(p->esq,menor);
+	printf("Menor: %d\n", menor);
+	
+	
+	}
+	
+}
