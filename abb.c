@@ -9,6 +9,7 @@ struct arvore{
     Arv* esq;
     Arv* dir;
 };
+
 //Da uma olhada nessa parte aqui, nao to conseguindo chamar a criaArv passando a criavazia como argumento pra ela
 Arv* criavazia(){
     return NULL;
@@ -20,6 +21,39 @@ Arv* criaArv(int key, Arv* esq, Arv* dir){
     p->esq = esq;
     p->dir = dir;
     return p;
+}
+
+// Adiciona um elemento na árvore binária de busca
+Arv* addElemento(int key, Arv *raiz)
+{
+	Arv *andador;
+
+	for (andador = raiz; andador != NULL;)
+	{
+		if(key > andador->key) // Se a chave for maior que o nó atual, vá para a direita
+		{
+			if(andador->dir == NULL)
+			{
+				andador->dir = criaArv(key, criavazia(), criavazia());
+				return raiz;
+			}
+
+			andador = andador->esq;
+		}
+
+		else
+		{
+			if(andador->esq == NULL) // Se a chave for menor que o nó atual, vá para a esquerda
+			{
+				andador->esq = criaArv(key, criavazia(), criavazia());
+				return raiz;
+			}
+
+			andador = andador->dir;
+		}
+	}
+
+	return criaArv(key, criavazia(), criavazia());
 }
 
 int chkVazia(Arv* p){
@@ -59,21 +93,34 @@ void imprime(Arv* p){
     }
 }
 
-Arv* buscaMin(Arv* p){
-    int min = 999;
-	printf("MIN: %d", min);	
-	
-    if((p->key)<min){
-        min = p->key;
-		printf("MIN: %d", min);
-        buscaMin(p->esq);
-        buscaMin(p->dir);
-    }
-	printf("MIN: %d", min);
-	printf("%d",p->esq->key);
+Arv* buscaMin(Arv* p)
+{
+	Arv *andador;
 
-	return p->esq; // Não sei o que retornaria porque a busca ta um pouco confusa. Mas precisa retornar alguma coisa pela declaração
+	for (andador = p; andador != NULL; andador = andador->esq) //Vai pra esqueda até achar o menor nó
+	{
+		if(andador->esq == NULL) //Se o nó da esquerda for vazio, parar o loop para retornar o nó atual
+			break;
+	}
+
+	return andador; //Retorna ou NULL(caso a árvore seja vazia) ou o menor nó
 }
+
+/* Arv* buscaMin(Arv* p){ */
+/*     int min = 999; */
+/* 	printf("MIN: %d", min);	 */
+	
+/*     if((p->key)<min){ */
+/*         min = p->key; */
+/* 		printf("MIN: %d", min); */
+/*         buscaMin(p->esq); */
+/*         buscaMin(p->dir); */
+/*     } */
+/* 	printf("MIN: %d", min); */
+/* 	printf("%d",p->esq->key); */
+
+/* 	return p->esq; // Não sei o que retornaria porque a busca ta um pouco confusa. Mas precisa retornar alguma coisa pela declaração */
+/* } */
 
 Arv* busca (Arv *r, int k)
 {
